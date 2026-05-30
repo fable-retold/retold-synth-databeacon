@@ -1,0 +1,7 @@
+{
+	"Name": "retold-synth-databeacon",
+	"Version": "0.0.1",
+	"Description": "Synthetic data beacon — generates realistic, deterministic, on-demand record sets from declarative specs. A drop-in replacement for retold-databeacon as a source in operation graphs: same paginated REST surface, no real database behind it. Backed by fable's ExpressionParser + chance.js, seeded per cell so the same spec + seed always produces the same data.",
+	"GeneratedAt": "2026-05-30T22:31:47.742Z",
+	"GitCommit": "8ae8507"
+}

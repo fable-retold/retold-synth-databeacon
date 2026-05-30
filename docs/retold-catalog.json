@@ -1,0 +1,75 @@
+{
+	"Generated": "2026-05-30T22:31:47.484Z",
+	"Mode": "module",
+	"GitHubOrg": "fable-retold",
+	"DefaultBranch": "master",
+	"Module": {
+		"Name": "retold-synth-databeacon",
+		"Repo": "retold-synth-databeacon",
+		"Group": "",
+		"Branch": "master",
+		"HasDocs": true,
+		"HasCover": true,
+		"Sidebar": [
+			{
+				"Title": "Getting Started",
+				"Children": [
+					{
+						"Title": "Introduction",
+						"Path": "README.md"
+					},
+					{
+						"Title": "Quick Start",
+						"Path": "quickstart.md"
+					},
+					{
+						"Title": "Architecture",
+						"Path": "architecture.md"
+					},
+					{
+						"Title": "Specs Guide",
+						"Path": "specs.md"
+					}
+				]
+			},
+			{
+				"Title": "Related Modules",
+				"Children": [
+					{
+						"Title": "retold-databeacon",
+						"Path": "https://github.com/fable-retold/retold-databeacon"
+					},
+					{
+						"Title": "meadow",
+						"Path": "https://github.com/fable-retold/meadow"
+					},
+					{
+						"Title": "fable",
+						"Path": "https://github.com/fable-retold/fable"
+					},
+					{
+						"Title": "orator",
+						"Path": "https://github.com/fable-retold/orator"
+					},
+					{
+						"Title": "ultravisor",
+						"Path": "https://stevenvelozo.github.io/ultravisor/README.md"
+					},
+					{
+						"Title": "ultravisor-beacon",
+						"Path": "https://stevenvelozo.github.io/ultravisor-beacon/README.md"
+					}
+				]
+			}
+		],
+		"DocFiles": [
+			"README.md",
+			"_cover.md",
+			"_sidebar.md",
+			"architecture.md",
+			"quickstart.md",
+			"specs.md"
+		]
+	},
+	"Groups": []
+}
