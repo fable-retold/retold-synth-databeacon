@@ -1,6 +1,8 @@
 Retold SynthDatabeacon
 ======================
 
+> **[Read the Retold SynthDatabeacon Documentation](https://fable-retold.github.io/retold-synth-databeacon/)**
+
 An on-demand synthetic-record source for the Retold ecosystem. SynthDatabeacon serves a paginated REST surface that mirrors meadow's standard endpoint shape, but the records it returns are generated per request from declarative JSON specs rather than read from a real database.
 
 Because it speaks the same meadow-shape `/1.0/:spec/:entity` surface and registers the same `MeadowProxy` beacon capability as [retold-databeacon](https://github.com/fable-retold/retold-databeacon), any consumer that already reads records over the Ultravisor mesh -- including retold-data-mapper's PullRecords -- can point at a synth spec as a drop-in data source with no code changes.
