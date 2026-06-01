@@ -103,17 +103,17 @@ The response is a JSON array of records:
 [
 	{
 		"IDCustomer": 1,
-		"GUIDCustomer": "…",
-		"FirstName": "…",
-		"LastName": "…",
-		"FullName": "…",
-		"Email": "…",
-		"Phone": "…",
-		"City": "…",
-		"StateCode": "…",
+		"GUIDCustomer": "...",
+		"FirstName": "...",
+		"LastName": "...",
+		"FullName": "...",
+		"Email": "...",
+		"Phone": "...",
+		"City": "...",
+		"StateCode": "...",
 		"IDCompany": 7,
 		"TenureYears": 12,
-		"CreatedDate": "2023-… T…Z"
+		"CreatedDate": "2023-... T...Z"
 	}
 ]
 ```
@@ -224,7 +224,7 @@ On success you will see:
 
 ```
 Auto-connecting to Ultravisor at ws://ultravisor:8080 as "synth-demo"...
-Ultravisor auto-connect succeeded — registered as "synth-demo".
+Ultravisor auto-connect succeeded - registered as "synth-demo".
 ```
 
 The beacon connects read-only (`AllowWrites: false`). Because the capability name matches retold-databeacon's, any mesh consumer that targets `MeadowProxy` -- such as retold-data-mapper's PullRecords -- works against this beacon with no changes. See [Architecture](architecture.md) for the details of the proxy path.

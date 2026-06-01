@@ -182,7 +182,7 @@ sequenceDiagram
 	participant MP as MeadowProxy Request handler
 	participant RS as RestServer (localhost)
 
-	Consumer->>UV: Work item — MeadowProxy.Request<br/>(Method=GET, Path=/1.0/spec/Entity/0/100)
+	Consumer->>UV: Work item - MeadowProxy.Request<br/>(Method=GET, Path=/1.0/spec/Entity/0/100)
 	UV->>BP: route to beacon
 	BP->>MP: invoke Request handler
 	MP->>MP: check allowlist + writes gate
