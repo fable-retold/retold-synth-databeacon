@@ -7,9 +7,9 @@
 
 - Related Modules
 
-  - [retold-databeacon](https://github.com/fable-retold/retold-databeacon)
-  - [meadow](https://github.com/fable-retold/meadow)
-  - [fable](https://github.com/fable-retold/fable)
-  - [orator](https://github.com/fable-retold/orator)
+  - [retold-databeacon](https://fable-retold.github.io/retold-databeacon/)
+  - [meadow](https://fable-retold.github.io/meadow/)
+  - [fable](https://fable-retold.github.io/fable/)
+  - [orator](https://fable-retold.github.io/orator/)
   - [ultravisor](https://stevenvelozo.github.io/ultravisor/)
   - [ultravisor-beacon](https://stevenvelozo.github.io/ultravisor-beacon/)

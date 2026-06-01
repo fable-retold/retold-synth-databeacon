@@ -2,7 +2,7 @@
 
 Retold SynthDatabeacon is an on-demand synthetic-record source. It serves a paginated REST surface shaped exactly like meadow's standard endpoints, but every record is generated per request from a declarative JSON spec instead of being read from a database. From the outside it looks like a real data source; behind it there is no database, just a spec and a seed.
 
-SynthDatabeacon is built to be a drop-in source for [retold-databeacon](https://github.com/fable-retold/retold-databeacon). It mirrors the meadow-shape `/1.0/:spec/:entity` surface and registers the same `MeadowProxy` Ultravisor capability, so any consumer that already pulls records over the mesh -- including retold-data-mapper's PullRecords -- can use a synth spec as a source unchanged.
+SynthDatabeacon is built to be a drop-in source for [retold-databeacon](https://fable-retold.github.io/retold-databeacon/). It mirrors the meadow-shape `/1.0/:spec/:entity` surface and registers the same `MeadowProxy` Ultravisor capability, so any consumer that already pulls records over the mesh -- including retold-data-mapper's PullRecords -- can use a synth spec as a source unchanged.
 
 ## Why Synthetic Data
 
@@ -79,9 +79,9 @@ See the [Specs Guide](specs.md) for the entity lists, the full `synth_*` functio
 
 ## Related Modules
 
-- [retold-databeacon](https://github.com/fable-retold/retold-databeacon) -- the real-database beacon SynthDatabeacon is a drop-in source for
-- [meadow](https://github.com/fable-retold/meadow) -- the data access layer whose REST endpoint shape SynthDatabeacon mirrors
-- [fable](https://github.com/fable-retold/fable) -- service container, configuration, and the ExpressionParser that evaluates specs
-- [orator](https://github.com/fable-retold/orator) -- the HTTP server SynthDatabeacon serves through
+- [retold-databeacon](https://fable-retold.github.io/retold-databeacon/) -- the real-database beacon SynthDatabeacon is a drop-in source for
+- [meadow](https://fable-retold.github.io/meadow/) -- the data access layer whose REST endpoint shape SynthDatabeacon mirrors
+- [fable](https://fable-retold.github.io/fable/) -- service container, configuration, and the ExpressionParser that evaluates specs
+- [orator](https://fable-retold.github.io/orator/) -- the HTTP server SynthDatabeacon serves through
 - [ultravisor](https://stevenvelozo.github.io/ultravisor/) -- the workflow / mesh coordinator a beacon registers with
 - [ultravisor-beacon](https://stevenvelozo.github.io/ultravisor-beacon/) -- the beacon-registration library that exposes the MeadowProxy capability
