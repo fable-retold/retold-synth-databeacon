@@ -54,8 +54,8 @@ Documentation lives in the [docs](./docs) folder:
 - [meadow](https://github.com/fable-retold/meadow) -- the data access layer whose REST endpoint shape SynthDatabeacon mirrors
 - [fable](https://github.com/fable-retold/fable) -- service container, configuration, and the ExpressionParser that evaluates specs
 - [orator](https://github.com/fable-retold/orator) -- the HTTP server SynthDatabeacon serves through
-- [ultravisor](https://stevenvelozo.github.io/ultravisor/) -- the workflow / mesh coordinator a beacon registers with
-- [ultravisor-beacon](https://stevenvelozo.github.io/ultravisor-beacon/) -- the beacon-registration library that exposes the MeadowProxy capability
+- [ultravisor](https://github.com/stevenvelozo/ultravisor) -- the workflow / mesh coordinator a beacon registers with
+- [ultravisor-beacon](https://github.com/stevenvelozo/ultravisor-beacon) -- the beacon-registration library that exposes the MeadowProxy capability
 
 ## License
 
