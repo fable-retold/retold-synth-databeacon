@@ -8,55 +8,8 @@ The service is assembled as a `fable-serviceproviderbase` provider (`RetoldSynth
 
 ## Component Architecture
 
-```mermaid
-graph TB
-	subgraph "retold-synth-databeacon Process"
-		CLI["bin/retold-synth-databeacon.js<br/>(CLI Entry Point)"]
-		CORE["Retold-SynthDatabeacon.js<br/>(Core Service)"]
-
-		CLI --> CORE
-
-		subgraph "Services"
-			SR["SpecRegistry<br/>Loads + indexes specs"]
-			SF["SolverFunctions<br/>Registers synth_* on the parser"]
-			EV["Evaluator<br/>Cell-by-cell generation"]
-			RS["RestServer<br/>meadow-shape + /synth routes"]
-			BP["BeaconProvider<br/>Ultravisor registration"]
-			MP["MeadowProxyProvider<br/>Loopback proxy capability"]
-		end
-
-		CORE --> SR
-		CORE --> SF
-		CORE --> EV
-		CORE --> RS
-		CORE --> BP
-		BP --> MP
-
-		subgraph "Retold Infrastructure"
-			ORA["Orator<br/>(HTTP Server / Restify)"]
-			EP["ExpressionParser<br/>(fable)"]
-			CH["chance.js<br/>(seeded RNG)"]
-		end
-
-		RS --> EV
-		EV --> EP
-		SF --> EP
-		SF --> CH
-		CORE --> ORA
-		RS --> ORA
-	end
-
-	subgraph "External Systems"
-		UV["Ultravisor Coordinator"]
-		CLIENTS["REST Clients"]
-		MESH["Mesh Consumers<br/>(e.g. PullRecords)"]
-	end
-
-	CLIENTS --> ORA
-	BP --> UV
-	MESH --> UV
-	MP --> ORA
-```
+<!-- bespoke diagram: edit diagrams/component-architecture.mmd or .hints.json, then: npx pict-renderer-graph build modules/apps/retold-synth-databeacon/docs -->
+![Component Architecture](diagrams/component-architecture.svg)
 
 ## Service Architecture
 
@@ -148,79 +101,18 @@ The loopback request targets `fable.settings.APIServerAddress` (default `127.0.0
 
 ### Direct REST Read
 
-```mermaid
-sequenceDiagram
-	participant Client as REST Client
-	participant ORA as Orator
-	participant RS as RestServer
-	participant SR as SpecRegistry
-	participant EV as Evaluator
-	participant EP as ExpressionParser
-
-	Client->>ORA: GET /1.0/customers-demo-v1/Customers/0/100
-	ORA->>RS: route handler
-	RS->>SR: getEntity(spec, "Customer")
-	SR-->>RS: { Entity, Count, Fields, GlobalSeed }
-	RS->>EV: generateRange(entity, seed, 0, 100)
-	loop each row, each field
-		EV->>EV: SynthContext.seed = sha1(seed||entity||row||col)
-		EV->>EP: solve(expression)
-		EP-->>EV: value
-	end
-	EV-->>RS: [ records ]
-	RS-->>ORA: 200 JSON array
-	ORA-->>Client: records
-```
+<!-- bespoke diagram: edit diagrams/direct-rest-read.mmd or .hints.json, then: npx pict-renderer-graph build modules/apps/retold-synth-databeacon/docs -->
+![Direct REST Read](diagrams/direct-rest-read.svg)
 
 ### Mesh Read via MeadowProxy
 
-```mermaid
-sequenceDiagram
-	participant Consumer as Mesh Consumer (PullRecords)
-	participant UV as Ultravisor Coordinator
-	participant BP as BeaconProvider
-	participant MP as MeadowProxy Request handler
-	participant RS as RestServer (localhost)
-
-	Consumer->>UV: Work item - MeadowProxy.Request<br/>(Method=GET, Path=/1.0/spec/Entity/0/100)
-	UV->>BP: route to beacon
-	BP->>MP: invoke Request handler
-	MP->>MP: check allowlist + writes gate
-	MP->>RS: loopback HTTP GET 127.0.0.1:8390
-	RS-->>MP: 200 JSON array
-	MP-->>UV: Outputs { Status, Body }
-	UV-->>Consumer: records
-```
+<!-- bespoke diagram: edit diagrams/mesh-read-via-meadowproxy.mmd or .hints.json, then: npx pict-renderer-graph build modules/apps/retold-synth-databeacon/docs -->
+![Mesh Read via MeadowProxy](diagrams/mesh-read-via-meadowproxy.svg)
 
 ## Deployment Architecture
 
-```mermaid
-graph TB
-	subgraph "Docker Container"
-		subgraph "retold-synth-databeacon"
-			NODE["Node.js 20-slim"]
-			APP["SynthDatabeacon Service<br/>Port 8390"]
-			NODE --> APP
-		end
-		SPECS["source/specs/*.json<br/>(bundled, or mounted)"]
-		APP --> SPECS
-	end
-
-	subgraph "Ultravisor Mesh"
-		COORD["Ultravisor Coordinator"]
-		OTHER["Other Beacons"]
-		COORD --- OTHER
-	end
-
-	subgraph "Consumers"
-		API["REST API Clients"]
-		MESH["Mesh Work Items<br/>(MeadowProxy.Request)"]
-	end
-
-	APP -->|"WebSocket (optional)"| COORD
-	API -->|"HTTP :8390"| APP
-	COORD -->|"Work items"| APP
-```
+<!-- bespoke diagram: edit diagrams/deployment-architecture.mmd or .hints.json, then: npx pict-renderer-graph build modules/apps/retold-synth-databeacon/docs -->
+![Deployment Architecture](diagrams/deployment-architecture.svg)
 
 The Docker image is a multi-stage build on `node:20-slim`. The builder stage runs `npm install` (not `npm ci` -- the lockfile is gitignored upstream, the same convention retold-databeacon uses) and copies `source/` and `bin/`; the runtime stage reinstalls with `--omit=dev` and copies the built tree. There is no browser bundle. The image exposes port 8390 and defines a `HEALTHCHECK` that polls `/synth/health` every 30 seconds.
 

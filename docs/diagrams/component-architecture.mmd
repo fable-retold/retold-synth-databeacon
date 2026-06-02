@@ -1,0 +1,47 @@
+graph TB
+	subgraph "retold-synth-databeacon Process"
+		CLI["bin/retold-synth-databeacon.js<br/>(CLI Entry Point)"]
+		CORE["Retold-SynthDatabeacon.js<br/>(Core Service)"]
+
+		CLI --> CORE
+
+		subgraph "Services"
+			SR["SpecRegistry<br/>Loads + indexes specs"]
+			SF["SolverFunctions<br/>Registers synth_* on the parser"]
+			EV["Evaluator<br/>Cell-by-cell generation"]
+			RS["RestServer<br/>meadow-shape + /synth routes"]
+			BP["BeaconProvider<br/>Ultravisor registration"]
+			MP["MeadowProxyProvider<br/>Loopback proxy capability"]
+		end
+
+		CORE --> SR
+		CORE --> SF
+		CORE --> EV
+		CORE --> RS
+		CORE --> BP
+		BP --> MP
+
+		subgraph "Retold Infrastructure"
+			ORA["Orator<br/>(HTTP Server / Restify)"]
+			EP["ExpressionParser<br/>(fable)"]
+			CH["chance.js<br/>(seeded RNG)"]
+		end
+
+		RS --> EV
+		EV --> EP
+		SF --> EP
+		SF --> CH
+		CORE --> ORA
+		RS --> ORA
+	end
+
+	subgraph "External Systems"
+		UV["Ultravisor Coordinator"]
+		CLIENTS["REST Clients"]
+		MESH["Mesh Consumers<br/>(e.g. PullRecords)"]
+	end
+
+	CLIENTS --> ORA
+	BP --> UV
+	MESH --> UV
+	MP --> ORA

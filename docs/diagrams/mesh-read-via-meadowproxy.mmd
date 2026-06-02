@@ -1,0 +1,15 @@
+sequenceDiagram
+	participant Consumer as Mesh Consumer (PullRecords)
+	participant UV as Ultravisor Coordinator
+	participant BP as BeaconProvider
+	participant MP as MeadowProxy Request handler
+	participant RS as RestServer (localhost)
+
+	Consumer->>UV: Work item - MeadowProxy.Request<br/>(Method=GET, Path=/1.0/spec/Entity/0/100)
+	UV->>BP: route to beacon
+	BP->>MP: invoke Request handler
+	MP->>MP: check allowlist + writes gate
+	MP->>RS: loopback HTTP GET 127.0.0.1:8390
+	RS-->>MP: 200 JSON array
+	MP-->>UV: Outputs { Status, Body }
+	UV-->>Consumer: records

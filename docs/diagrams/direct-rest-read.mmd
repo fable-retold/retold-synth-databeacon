@@ -1,0 +1,21 @@
+sequenceDiagram
+	participant Client as REST Client
+	participant ORA as Orator
+	participant RS as RestServer
+	participant SR as SpecRegistry
+	participant EV as Evaluator
+	participant EP as ExpressionParser
+
+	Client->>ORA: GET /1.0/customers-demo-v1/Customers/0/100
+	ORA->>RS: route handler
+	RS->>SR: getEntity(spec, "Customer")
+	SR-->>RS: { Entity, Count, Fields, GlobalSeed }
+	RS->>EV: generateRange(entity, seed, 0, 100)
+	loop each row, each field
+		EV->>EV: SynthContext.seed = sha1(seed||entity||row||col)
+		EV->>EP: solve(expression)
+		EP-->>EV: value
+	end
+	EV-->>RS: [ records ]
+	RS-->>ORA: 200 JSON array
+	ORA-->>Client: records

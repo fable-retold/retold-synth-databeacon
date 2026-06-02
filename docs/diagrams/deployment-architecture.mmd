@@ -1,0 +1,25 @@
+graph TB
+	subgraph "Docker Container"
+		subgraph "retold-synth-databeacon"
+			NODE["Node.js 20-slim"]
+			APP["SynthDatabeacon Service<br/>Port 8390"]
+			NODE --> APP
+		end
+		SPECS["source/specs/*.json<br/>(bundled, or mounted)"]
+		APP --> SPECS
+	end
+
+	subgraph "Ultravisor Mesh"
+		COORD["Ultravisor Coordinator"]
+		OTHER["Other Beacons"]
+		COORD --- OTHER
+	end
+
+	subgraph "Consumers"
+		API["REST API Clients"]
+		MESH["Mesh Work Items<br/>(MeadowProxy.Request)"]
+	end
+
+	APP -->|"WebSocket (optional)"| COORD
+	API -->|"HTTP :8390"| APP
+	COORD -->|"Work items"| APP
